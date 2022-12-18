@@ -1,0 +1,4 @@
+fastapi
+pycryptodome
+phpserialize3
+python-dotenv
