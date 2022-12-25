@@ -61,16 +61,28 @@ def validateWebhook(input_data):
   signature = base64.b64decode(signature)
 
   if verifier.verify(digest, signature):
+    # todo topup user credit, upgrade level etc
     return True
   else:
     return False
+
+def payment_success(payload):
+  if payload['alert_name'] == 'payment_succeeded':
+    # print("Payment Success!")
+    return True
+
+  return False
 
 @app.post('/webhook')
 async def webhook(req: Request):
   if req.headers.get('Content-Type') == 'application/x-www-form-urlencoded':
     body = await req.form()
+    if validateWebhook(dict(body)):
+      return True
+      # if payment_success(dict(body)):
+      #   return {'message': 'New Payment'}
 
-    return {'result': validateWebhook(dict(body))}
+    return {'message': 'Error verify webhook!' }
   else:
     return {'message': 'Content type not supported.'}
 

@@ -1,5 +1,7 @@
 ## Paddle Webhook with FastAPI (Example)
 
+This is example payment for sell one-time products only.
+
 More info: https://developer.paddle.com/webhook-reference
 
 ## Paddle Public Key
